@@ -23,6 +23,7 @@
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 import country from "../../assets/json/country.json";
+import { mapMutations } from "vuex"; //註冊 action 和 state
 
 export default {
   name: "Country",
@@ -38,12 +39,11 @@ export default {
     this.topodata = this.topoCountry;
   },
   methods: {
+    ...mapMutations(["zoomSetting", "focusContrySetting"]),
     clickCountry(event, country) {
       this.isActive = !this.isActive;
       var pNode = event.currentTarget.parentNode.getBoundingClientRect();
       var tgNode = event.currentTarget.getBoundingClientRect();
-      console.log(event.currentTarget.getBoundingClientRect());
-      console.log(event.currentTarget.parentNode.getBoundingClientRect());
 
       var center = [
         (pNode.right - pNode.left) / 2 + pNode.left,
@@ -53,25 +53,22 @@ export default {
         (tgNode.right - tgNode.left) / 2 + tgNode.left,
         (tgNode.bottom - tgNode.top) / 2 + tgNode.top
       ];
-      console.log(center, tgCenter);
-
       var g = d3.select(event.currentTarget.parentNode);
-      var scale = 4;
-      if (this.isActive)
+      var scale = 3.5;
+      var zooms = [-(tgCenter[0] - center[0]) - 20, -(tgCenter[1] - center[1]), scale];
+      if (this.isActive){           
+        this.focusContrySetting(country.location)
+        this.zoomSetting(zooms);
         g.transition()
-          .duration(780)
-
-          .attr(
-            "transform",
-            `translate(${-(tgCenter[0] - center[0]) * scale},${-(
-              tgCenter[1] - center[1]
-            ) * scale})scale(${scale})`
-          );
-      else
+          .duration(900)
+          .attr("transform", `scale(${scale})translate(${zooms[0]},${zooms[1]})`);
+      } else {
+        this.focusContrySetting(country.location)
+        this.zoomSetting([0,0,1]);
         g.transition()
           .duration(780)
           .attr("transform", "scale(1)");
-
+      }
       // if(this.isActive)
       //   g.transition()
       //   .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")scale(" + 4 + ")translate(" + -x + "," + -y + ")")

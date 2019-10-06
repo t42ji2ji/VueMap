@@ -12,7 +12,7 @@
 
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
-import Kinmen from '../json/towns-09020.json'
+import Kinmen from '../../assets/json/towns-09020.json'
 
 export default {
     name: 'Matsu',

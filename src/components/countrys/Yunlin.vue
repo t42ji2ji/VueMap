@@ -12,7 +12,7 @@
 
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
-import Yunlin from '../json/towns-10009.json'
+import Yunlin from '../../assets/json/towns-10009.json'
 
 export default {
     name: 'Yunlin',

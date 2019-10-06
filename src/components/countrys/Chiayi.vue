@@ -1,6 +1,7 @@
 <template>
   <svg :width="svgWidth" :height="svgHeight">
-    <g v-for="country in topoCountry" @mouseover="test">
+    <g v-for="country in topoCountry"
+      :key="country.d" @mouseover="test">
         <path :d="country.d" :id="country.location" class="town" :style="{fill: fill, stroke: stroke}">
             <title>{{country.location}}</title>
         </path>
@@ -12,7 +13,7 @@
 
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
-import Chiayi from '../json/towns-10010.json'
+import Chiayi from '../../assets/json/towns-10010.json'
 
 export default {
     name: 'Chiayi',

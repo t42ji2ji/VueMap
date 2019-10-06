@@ -1,14 +1,13 @@
 <template lang="pug">
   #app
     h3 {{locationName}}
-    //- img(alt='Vue logo' src='./assets/logo.png')
-    //- HelloWorld(msg='Welcome to Your Vue.js App')
-    //- Country(width="800" height="600" stroke="#000000" fill="#DCDCDC" fit="true")
+    h3 {{zoom}}
     .mapRapper(:style="{width: mapWidthpx, height: mapHeightpx}")
       Country(:width="mapWidth" :height="mapHeight" @getCountryName="showName" :scale="scaleMap")
-      transition(name="fade")
-        Changhua(@getCountryName="showName" v-if="country[0]['彰化縣']" :width="mapWidth" :height="mapHeight")
+      //- transition-group(name="fade")
+      Changhua(@getCountryName="showName" v-if="focusContry['彰化縣']" :width="mapWidth" :height="mapHeight" key='1' :scale="scaleMap" :zoom="zoom")
     .btn(@click="fitting") 點我
+    .btn(@click="ch") 點我
 
 </template>
 
@@ -16,28 +15,37 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import Changhua from './components/countrys/Changhua'
+
 import Country from './components/countrys/Country'
+
+import {mapState, mapMutations} from 'vuex' //註冊 action 和 state
+
 
 export default {
   name: 'app',
   components: {
     HelloWorld,
     Changhua,
-    Country
+    Country,
   },
   data () {
     return {
       isFit: true,
       locationName: "asd",
       mapWidth: '800',
-      mapHeight: '900',
+      mapHeight: '800',
       scaleMap: 8000,
-      country: [{
+      country: {
         "彰化縣" : false
-      }]
+      },
     }
   },
   computed: {
+    ...mapState([
+      'count',
+      'zoom',
+      'focusContry'
+    ]),
     mapHeightpx() {
       return this.mapHeight + 'px'
     },
@@ -46,12 +54,20 @@ export default {
     }
   },
   methods: {
+    ch() {
+      this.focusContrySetting("彰化縣")
+    },
     fitting() {
-      this.country[0]["彰化縣"] = !this.country[0]["彰化縣"]
+      this.reset()
     },
     showName(name) {
       this.locationName = name
-    }
+    },
+    ...mapMutations([
+      'increment2',
+      'reset',
+      'focusContrySetting'
+    ])
   }
 }
 </script>
@@ -76,6 +92,8 @@ export default {
   height: 50px
   background-color: darkgray
   line-height: 50px
+  z-index: 999
+  cursor: pointer
 
 .mapRapper
   position: relative
@@ -85,7 +103,7 @@ export default {
 
 
 .fade-enter-active, .fade-leave-active
-  transition: opacity .5s
+  transition: 5s
 
 .fade-enter, .fade-leave-to
   opacity: 0

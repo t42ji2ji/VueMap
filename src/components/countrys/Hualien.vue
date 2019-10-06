@@ -12,7 +12,7 @@
 
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
-import Hualien from '../json/towns-10015.json'
+import Hualien from '../../assets/json/towns-10015.json'
 
 export default {
     name: 'Hualien',

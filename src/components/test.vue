@@ -12,7 +12,7 @@
 
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
-import Changhua from '../json/towns-10007.json'
+import Changhua from '../../assets/json/towns-10007.json'
 
 export default {
     name: 'Changhua',

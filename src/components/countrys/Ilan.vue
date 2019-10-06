@@ -12,7 +12,7 @@
 
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
-import Ilan from '../json/towns-10002.json'
+import Ilan from '../../assets/json/towns-10002.json'
 
 export default {
     name: 'Ilan',

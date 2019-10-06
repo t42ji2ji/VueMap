@@ -12,7 +12,7 @@
 
 import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
-import Pingtung from '../json/towns-10013.json'
+import Pingtung from '../../assets/json/towns-10013.json'
 
 export default {
     name: 'Pingtung',
