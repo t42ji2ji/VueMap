@@ -1,11 +1,11 @@
 <template>
-  <svg :width="svgWidth" :height="svgHeight">
+  <svg :width="svgWidth" :height="svgHeight" class="countrySVG">
     <g
       v-for="country in topodata"
       :key="country.d"
       @mouseenter="sendCountryName($event,country.location)"
       @click="clickCountry($event, country)"
-      :class="{ active: isActive}"
+      :class="{ active: isActive }"
     >
       <path
         :d="country.d"
@@ -40,6 +40,17 @@ export default {
   },
   methods: {
     ...mapMutations(["zoomSetting", "focusContrySetting"]),
+    mapRest() {
+      if(this.isActive){
+        this.isActive = !this.isActive
+      }
+      var g = d3.selectAll(".countrySVG");
+      this.focusContrySetting(country.location)
+      this.zoomSetting([0,0,1]);
+      g.transition()
+        .duration(780)
+        .attr("transform", "scale(1)");
+    },
     clickCountry(event, country) {
       this.isActive = !this.isActive;
       var pNode = event.currentTarget.parentNode.getBoundingClientRect();
@@ -54,8 +65,8 @@ export default {
         (tgNode.bottom - tgNode.top) / 2 + tgNode.top
       ];
       var g = d3.select(event.currentTarget.parentNode);
-      var scale = 3.5;
-      var zooms = [-(tgCenter[0] - center[0]) - 20, -(tgCenter[1] - center[1]), scale];
+      var scale = 4;
+      var zooms = [-(tgCenter[0] - center[0]) - 50, -(tgCenter[1] - center[1]), scale];
       if (this.isActive){           
         this.focusContrySetting(country.location)
         this.zoomSetting(zooms);
@@ -63,17 +74,8 @@ export default {
           .duration(900)
           .attr("transform", `scale(${scale})translate(${zooms[0]},${zooms[1]})`);
       } else {
-        this.focusContrySetting(country.location)
-        this.zoomSetting([0,0,1]);
-        g.transition()
-          .duration(780)
-          .attr("transform", "scale(1)");
+        this.mapRest()
       }
-      // if(this.isActive)
-      //   g.transition()
-      //   .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")scale(" + 4 + ")translate(" + -x + "," + -y + ")")
-      // else
-      //   g.transition().attr("transform", "scale(1)")
     },
     sendCountryName(d, name) {
       this.$emit("getCountryName", name);
@@ -127,6 +129,7 @@ export default {
 svg
   position: absolute
   left: 0
+
 
 .country 
   fill: #ffffff

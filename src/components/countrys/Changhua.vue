@@ -1,10 +1,11 @@
 <template>
-  <svg :width="svgWidth" :height="svgHeight" class="t">
+  <svg :width="svgWidth" :height="svgHeight" class="townSVG">
     <!-- <svg :width="svgWidth" :height="svgHeight" :transform="`scale(${zoom[2]}), translate(${zoom[0]},${zoom[1]})`"> -->
     <g
       v-for="country in topoCountry"
       :key="country.d"
       @mouseenter="sendCountryName(country.location)"
+      @click="close(country.location)"
     >
       <path
         :d="country.d"
@@ -38,14 +39,14 @@ export default {
   ],
   data: function() {
     return {
-      Changhua: Changhua,
+      CountryType: Changhua,
       mapStyle: {
         fill: "red"
       }
     };
   },
   mounted() {
-    var g = d3.selectAll(".t");
+    var g = d3.selectAll(".townSVG");
     console.log(g);
     console.log(this.zoom);
     g.transition()
@@ -56,9 +57,24 @@ export default {
         `scale(${this.zoom[2]})translate(${this.zoom[0]},${this.zoom[1]})`
       );
   },
+  beforeDestroy: function() {
+    //移除 vue instance 之後
+    console.log('destroyed');
+  },
   methods: {
     sendCountryName(name) {
       this.$emit("getCountryName", name);
+    },
+    async close(name) {
+      var g = d3.selectAll(".townSVG");
+      await g.transition()
+        .duration(900)
+        .style("opacity", 0.0)
+        .attr(
+          "transform",
+          `scale(1)translate(0,0)`
+        );
+      await this.$emit("closemap", name)
     }
   },
   computed: {
@@ -72,7 +88,7 @@ export default {
       return this.scale || 7800;
     },
     topoCountry: function() {
-      var topo = topojson.feature(this.Changhua, this.Changhua.objects.map);
+      var topo = topojson.feature(this.CountryType, this.CountryType.objects.map);
       var prj;
       if (this.fit == true) {
         prj = d3.geoMercator().fitSize([this.svgWidth, this.svgHeight], topo);
