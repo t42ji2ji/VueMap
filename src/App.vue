@@ -1,6 +1,7 @@
 <template lang="pug">
   #app
-    h3 {{locationName}}
+    h3.title {{locationName}}
+    button(@click="test") 111
     .mapRapper(:style="{width: mapWidthpx, height: mapHeightpx}")
       Country(:width="mapWidth" :height="mapHeight" @getCountryName="showName" :scale="scaleMap" ref="_country")
       //- transition-group(name="fade")
@@ -90,7 +91,7 @@ export default {
   data() {
     return {
       isFit: true,
-      locationName: "asd",
+      locationName: "彰化縣",
       mapWidth: "900",
       mapHeight: "900",
       scaleMap: 9900,
@@ -113,6 +114,10 @@ export default {
     },
   },
   methods: {
+    test(){
+      this.reset()
+      console.log("object");
+    },
     closemap(name) {
       console.log(name);
       this.reset();
@@ -120,13 +125,17 @@ export default {
     },
     showName(name) {
       this.locationName = name;
-      console.log(this.nameCountry[name]);
     },
     handleResize() {
+      var default_scale = 9900;
+      var default_width = 1920;
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
       this.mapHeight = this.window.height
       this.mapWidth = this.window.width
+
+      // this.scaleMap = (default_scale * this.window.width) / default_width
+      console.log(this.scaleMap);
     },
     ...mapMutations(["increment2", "reset", "focusContrySetting"]),
   },
@@ -142,11 +151,17 @@ export default {
 
 <style lang="sass">
 
-h3
-  position: absolute
+*
+  outline: red soild 1px
+
+.title
   font-size: 5rem
-
-
+  z-index: 999
+  position: absolute
+  right: calc(20%)
+  top: 5rem
+  color: #53cde2
+  filter: drop-shadow(5px 5px 0px white)
 
 .country 
   fill: #ffffff
@@ -155,7 +170,7 @@ h3
   transition: .3s
   
   &:hover
-    fill: orange
+    fill: #53cde2 !important
     transform: translate(-2px, -5px) !important
 
 
@@ -166,12 +181,14 @@ h3
 
   &:hover
     stroke-width: 1.2 !important
+  
 
 body, html
   height: 100vh
   width: 100vw
   margin: 0
   overflow: hidden
+  background-color: #ffcdcd
 
 
 #app
@@ -184,19 +201,12 @@ body, html
   flex-direction: column
   justify-content: center
   align-items: center
-.btn
-  width: 200px
-  height: 50px
-  background-color: darkgray
-  line-height: 50px
-  z-index: 999
-  cursor: pointer
 
 .mapRapper
-  margin-right: 430px
   position: relative
   width: 375px
   height: 667px
+  margin-right: 15rem
 
 
 .fade-enter-active, .fade-leave-active

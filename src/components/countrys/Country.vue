@@ -27,7 +27,7 @@ import { mapMutations } from "vuex"; //註冊 action 和 state
 
 export default {
   name: "Country",
-  props: ["fill", "stroke", "width", "height", "scale", "lon", "lat", "fit"],
+  props: ["fill", "stroke", "width", "height", "scale", "lon", "lat", "fit", "fills"],
   data: function() {
     return {
       country: country,
@@ -129,6 +129,7 @@ export default {
 svg
   position: absolute
   left: 0
+
 
 
 .country 
