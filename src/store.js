@@ -436,13 +436,9 @@ export default new Vuex.Store({
       路竹鄉: "Lujhu",
 
       湖內鄉: "Hunei",
-
       茄萣鄉: "Jiading",
-
       永安鄉: "Yongan",
-
       彌陀鄉: "Mituo",
-
       梓官鄉: "Zihguan",
 
       旗山鎮: "Cishan",

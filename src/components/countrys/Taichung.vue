@@ -47,8 +47,7 @@ export default {
   },
   mounted() {
     var g = d3.selectAll(".townSVG");
-    console.log(g);
-    console.log(this.zoom);
+
     g.transition()
       .duration(900)
       .style("opacity", 1.0)
@@ -95,7 +94,7 @@ export default {
       } else {
         prj = d3
           .geoMercator()
-          .center([this.lon || 120.751864, this.lat || 23.400998])
+          .center([this.lon || 120.751864, this.lat || 23.600998])
           .scale(this.svgScale)
           .translate([this.svgWidth / 2, this.svgHeight / 2]);
       }
@@ -121,7 +120,6 @@ svg
   position: absolute
   left: 0
   opacity: 0
-
 .town
   fill: #FFFFFF
   stroke: #000000

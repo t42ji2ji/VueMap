@@ -5,7 +5,7 @@
       :key="country.d"
       @mouseenter="sendCountryName($event,country.location)"
       @click="clickCountry($event, country)"
-      :class="{ active: isActive }"
+      :class="[{ active: isActive}, country.location]"
     >
       <path
         :d="country.d"
@@ -37,6 +37,7 @@ export default {
   },
   mounted() {
     this.topodata = this.topoCountry;
+
   },
   methods: {
     ...mapMutations(["zoomSetting", "focusContrySetting"]),
@@ -65,8 +66,16 @@ export default {
         (tgNode.bottom - tgNode.top) / 2 + tgNode.top
       ];
       var g = d3.select(event.currentTarget.parentNode);
-      var scale = 4;
-      var zooms = [-(tgCenter[0] - center[0]) - 50, -(tgCenter[1] - center[1]), scale];
+      if(country.location == "金門縣" || country.location == "連江縣"){
+        var scale = 5;
+        var offsetX = -50;
+        var offsetY = 0;
+      } else {
+        var scale = 3;
+        var offsetX = 50;
+        var offsetY = 0;
+      }
+      var zooms = [-(tgCenter[0] - center[0]) - offsetX, -(tgCenter[1] - center[1]) - offsetY, scale];
       if (this.isActive){           
         this.focusContrySetting(country.location)
         this.zoomSetting(zooms);
@@ -104,7 +113,7 @@ export default {
       } else {
         prj = d3
           .geoMercator()
-          .center([this.lon || 120.751864, this.lat || 23.400998])
+          .center([this.lon || 120.751864, this.lat || 23.600998])
           .scale(this.svgScale)
           .translate([this.svgWidth / 2, this.svgHeight / 2]);
       }
@@ -138,12 +147,14 @@ svg
   stroke-width: 0.5
   transition: .3s
   
-  
-  &:hover
-    fill: orange
-    // transform: translate(-2px, -3px)
 
-  .active
-    transform: scale(2,2)
+
+
+.金門縣
+  transform-origin: center
+  transform: scale(1.5) translate(10px, 10px)
+// .連江縣
+//   transform-origin: center
+//   transform: scale(2) translate(1%, 25%)
 
 </style>

@@ -1,35 +1,33 @@
 <template lang="pug">
   #app
     h3.title {{locationName}}
-    button(@click="test") 111
+
     .mapRapper(:style="{width: mapWidthpx, height: mapHeightpx}")
-      Country(:width="mapWidth" :height="mapHeight" @getCountryName="showName" :scale="scaleMap" ref="_country")
+      Country(:width="mapWidth" :height="mapHeight" :fill="fillcolor" @getCountryName="showName" :scale="scaleMap" ref="_country")
       //- transition-group(name="fade")
-      Changhua(@closemap="closemap" @getCountryName="showName" v-if="focusContry['彰化縣']" :width="mapWidth" :height="mapHeight" key='1' :scale="scaleMap" :zoom="zoom")
-      Chiayi(@closemap="closemap" @getCountryName="showName" v-if="focusContry['嘉義縣']" :width="mapWidth" :height="mapHeight" key='2' :scale="scaleMap" :zoom="zoom")
-      ChiayiCity(@closemap="closemap" @getCountryName="showName" v-if="focusContry['嘉義市']" :width="mapWidth" :height="mapHeight" key='1' :scale="scaleMap" :zoom="zoom")
-      Hsinchu(@closemap="closemap" @getCountryName="showName" v-if="focusContry['新竹縣']" :width="mapWidth" :height="mapHeight" key='3' :scale="scaleMap" :zoom="zoom")
-      HsinchuCity(@closemap="closemap" @getCountryName="showName" v-if="focusContry['新竹市']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Hualien(@closemap="closemap" @getCountryName="showName" v-if="focusContry['花蓮縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Ilan(@closemap="closemap" @getCountryName="showName" v-if="focusContry['宜蘭縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Kaohsiung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['高雄市']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Keelung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['基隆市']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Kinmen(@closemap="closemap" @getCountryName="showName" v-if="focusContry['金門縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Matsu(@closemap="closemap" @getCountryName="showName" v-if="focusContry['馬祖縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Miaoli(@closemap="closemap" @getCountryName="showName" v-if="focusContry['苗栗縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Nantou(@closemap="closemap" @getCountryName="showName" v-if="focusContry['南投縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      NewTaipei(@closemap="closemap" @getCountryName="showName" v-if="focusContry['新北市']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Penghu(@closemap="closemap" @getCountryName="showName" v-if="focusContry['澎湖縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Pingtung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['屏東縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Taichung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺中市']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Tainan(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺南市']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Taipei(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺北市']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Taitung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺東縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Taoyuan(@closemap="closemap" @getCountryName="showName" v-if="focusContry['桃園市']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
-      Yunlin(@closemap="closemap" @getCountryName="showName" v-if="focusContry['雲林縣']" :width="mapWidth" :height="mapHeight"  :scale="scaleMap" :zoom="zoom")
 
-
-
+      Changhua(@closemap="closemap" @getCountryName="showName" v-if="focusContry['彰化縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor" key='1' :scale="scaleMap" :zoom="zoom")
+      Chiayi(@closemap="closemap" @getCountryName="showName" v-if="focusContry['嘉義縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor" key='2' :scale="scaleMap" :zoom="zoom")
+      ChiayiCity(@closemap="closemap" @getCountryName="showName" v-if="focusContry['嘉義市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor" key='1' :scale="scaleMap" :zoom="zoom")
+      Hsinchu(@closemap="closemap" @getCountryName="showName" v-if="focusContry['新竹縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor" key='3' :scale="scaleMap" :zoom="zoom")
+      HsinchuCity(@closemap="closemap" @getCountryName="showName" v-if="focusContry['新竹市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Hualien(@closemap="closemap" @getCountryName="showName" v-if="focusContry['花蓮縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Ilan(@closemap="closemap" @getCountryName="showName" v-if="focusContry['宜蘭縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Kaohsiung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['高雄市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Keelung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['基隆市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Kinmen(@closemap="closemap" @getCountryName="showName" v-if="focusContry['金門縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Matsu(@closemap="closemap" @getCountryName="showName" v-if="focusContry['馬祖縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Miaoli(@closemap="closemap" @getCountryName="showName" v-if="focusContry['苗栗縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Nantou(@closemap="closemap" @getCountryName="showName" v-if="focusContry['南投縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap + 100" :zoom="zoom")
+      NewTaipei(@closemap="closemap" @getCountryName="showName" v-if="focusContry['新北市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Penghu(@closemap="closemap" @getCountryName="showName" v-if="focusContry['澎湖縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Pingtung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['屏東縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Taichung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺中市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Tainan(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺南市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Taipei(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺北市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Taitung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺東縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Taoyuan(@closemap="closemap" @getCountryName="showName" v-if="focusContry['桃園市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Yunlin(@closemap="closemap" @getCountryName="showName" v-if="focusContry['雲林縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
 </template>
 
 
@@ -94,11 +92,12 @@ export default {
       locationName: "彰化縣",
       mapWidth: "900",
       mapHeight: "900",
-      scaleMap: 9900,
+      scaleMap: 8000,
       window: {
-      width: 0,
-      height: 0
-    }
+        width: 0,
+        height: 0
+      },
+      fillcolor: "#373D60"
     };
   },
   computed: {
@@ -151,6 +150,10 @@ export default {
 
 <style lang="sass">
 
+$highlight-color: #71D27A
+$base-color: #373D60
+$bg-color: #292C3C
+
 *
   outline: red soild 1px
 
@@ -160,8 +163,8 @@ export default {
   position: absolute
   right: calc(20%)
   top: 5rem
-  color: #53cde2
-  filter: drop-shadow(5px 5px 0px white)
+  color: white
+  // filter: drop-shadow(5px 5px 0px white)
 
 .country 
   fill: #ffffff
@@ -170,17 +173,22 @@ export default {
   transition: .3s
   
   &:hover
-    fill: #53cde2 !important
-    transform: translate(-2px, -5px) !important
+    fill: $highlight-color !important
+    transform: translate(0,0) !important
+
+
+.townSVG
+  background-color: rgba(0,0,0, 0.5)
 
 
 .town
   fill: #FFFFFF
   stroke: #000000
   stroke-width: 0.5
-
+  transition: .3s
   &:hover
-    stroke-width: 1.2 !important
+    stroke-width: 1 !important
+    fill: $highlight-color !important
   
 
 body, html
@@ -188,7 +196,7 @@ body, html
   width: 100vw
   margin: 0
   overflow: hidden
-  background-color: #ffcdcd
+  background-color: $bg-color
 
 
 #app
@@ -196,7 +204,7 @@ body, html
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   text-align: center
-  color: #2c3e50
+  color: $highlight-color
   display: flex
   flex-direction: column
   justify-content: center
@@ -214,4 +222,9 @@ body, html
 
 .fade-enter, .fade-leave-to
   opacity: 0
+
+.Mask
+  width: 100%
+  height: 100%
+  background-color: yellow
 </style>

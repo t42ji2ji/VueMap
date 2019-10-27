@@ -1,7 +1,7 @@
 
 
 <template>
-  <svg :width="svgWidth" :height="svgHeight" class="townSVG">
+  <svg :width="svgWidth" :height="svgHeight" class="townSVG kk">
     <!-- <svg :width="svgWidth" :height="svgHeight" :transform="`scale(${zoom[2]}), translate(${zoom[0]},${zoom[1]})`"> -->
     <g
       v-for="country in topoCountry"
@@ -51,12 +51,15 @@ export default {
     var g = d3.selectAll(".townSVG");
     console.log(g);
     console.log(this.zoom);
+
+    g.style("opacity", 1.0).attr("transform", "scale(1.5) translate(10,10)")
+
     g.transition()
       .duration(900)
       .style("opacity", 1.0)
       .attr(
         "transform",
-        `scale(${this.zoom[2]})translate(${this.zoom[0]},${this.zoom[1]})`
+        `scale(${this.zoom[2] * 1.5}) translate(${this.zoom[0] - 118.7},${this.zoom[1] - 68.5})`
       );
   },
   beforeDestroy: function() {
@@ -97,7 +100,7 @@ export default {
       } else {
         prj = d3
           .geoMercator()
-          .center([this.lon || 120.751864, this.lat || 23.400998])
+          .center([this.lon || 120.751864, this.lat || 23.600998])
           .scale(this.svgScale)
           .translate([this.svgWidth / 2, this.svgHeight / 2]);
       }
@@ -132,5 +135,8 @@ svg
 
   &:hover
     stroke-width: 1.5
+
+
+
 
 </style>
