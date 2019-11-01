@@ -1,11 +1,9 @@
 <template lang="pug">
   #app
     h3.title {{locationName}}
-
     .mapRapper(:style="{width: mapWidthpx, height: mapHeightpx}")
       Country(:width="mapWidth" :height="mapHeight" :fill="fillcolor" @getCountryName="showName" :scale="scaleMap" ref="_country")
-      //- transition-group(name="fade")
-
+      .Mask(v-if="isMask")
       Changhua(@closemap="closemap" @getCountryName="showName" v-if="focusContry['彰化縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor" key='1' :scale="scaleMap" :zoom="zoom")
       Chiayi(@closemap="closemap" @getCountryName="showName" v-if="focusContry['嘉義縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor" key='2' :scale="scaleMap" :zoom="zoom")
       ChiayiCity(@closemap="closemap" @getCountryName="showName" v-if="focusContry['嘉義市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor" key='1' :scale="scaleMap" :zoom="zoom")
@@ -16,7 +14,7 @@
       Kaohsiung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['高雄市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
       Keelung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['基隆市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
       Kinmen(@closemap="closemap" @getCountryName="showName" v-if="focusContry['金門縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
-      Matsu(@closemap="closemap" @getCountryName="showName" v-if="focusContry['馬祖縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+      Matsu(@closemap="closemap" @getCountryName="showName" v-if="focusContry['連江縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
       Miaoli(@closemap="closemap" @getCountryName="showName" v-if="focusContry['苗栗縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
       Nantou(@closemap="closemap" @getCountryName="showName" v-if="focusContry['南投縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap + 100" :zoom="zoom")
       NewTaipei(@closemap="closemap" @getCountryName="showName" v-if="focusContry['新北市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
@@ -28,6 +26,9 @@
       Taitung(@closemap="closemap" @getCountryName="showName" v-if="focusContry['臺東縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
       Taoyuan(@closemap="closemap" @getCountryName="showName" v-if="focusContry['桃園市']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
       Yunlin(@closemap="closemap" @getCountryName="showName" v-if="focusContry['雲林縣']" :width="mapWidth" :height="mapHeight" :fill="fillcolor"  :scale="scaleMap" :zoom="zoom")
+
+
+
 </template>
 
 
@@ -92,7 +93,7 @@ export default {
       locationName: "彰化縣",
       mapWidth: "900",
       mapHeight: "900",
-      scaleMap: 8000,
+      scaleMap: 12000,
       window: {
         width: 0,
         height: 0
@@ -101,7 +102,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["count", "zoom", "focusContry", "nameCountry", "nowCountry"]),
+    ...mapState(["count", "zoom", "focusContry", "nameCountry", "nowCountry","isMask"]),
     mapHeightpx() {
       return this.mapHeight + "px";
     },
@@ -167,7 +168,6 @@ $bg-color: #292C3C
   // filter: drop-shadow(5px 5px 0px white)
 
 .country 
-  fill: #ffffff
   stroke: #000000
   stroke-width: 0.5
   transition: .3s
@@ -177,8 +177,8 @@ $bg-color: #292C3C
     transform: translate(0,0) !important
 
 
-.townSVG
-  background-color: rgba(0,0,0, 0.5)
+// .townSVG
+//   background-color: rgba(0,0,0, 0.5)
 
 
 .town
@@ -187,7 +187,7 @@ $bg-color: #292C3C
   stroke-width: 0.5
   transition: .3s
   &:hover
-    stroke-width: 1 !important
+    stroke-width: 0.8 !important
     fill: $highlight-color !important
   
 
@@ -214,7 +214,6 @@ body, html
   position: relative
   width: 375px
   height: 667px
-  margin-right: 15rem
 
 
 .fade-enter-active, .fade-leave-active
@@ -224,7 +223,9 @@ body, html
   opacity: 0
 
 .Mask
-  width: 100%
-  height: 100%
-  background-color: yellow
+  position: absolute
+  pointer-events: none
+  width: 100vw
+  height: 100vh
+  background-color: rgba(black, 0.6)
 </style>

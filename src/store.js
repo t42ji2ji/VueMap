@@ -1,12 +1,41 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { stat } from 'fs';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isMask: false,
     count: 0,
     zoom: [0, 0, 1],
+    scaleContry: {
+      ".PenghuCount" : {
+        "scale": 1.5,
+        "offsetX": 0,
+        "offsetY": 0,
+      },
+      ".Kinmen" : {
+        "scale": 1.8,
+        "offsetX": 230,
+        "offsetY": 0,
+      },
+      ".Miaoli" : {
+        "scale": 1,
+        "offsetX": 0,
+        "offsetY": 0,
+      },
+      // ".Lienchiang" : {
+      //   "scale": 1,
+      //   "offsetX": 0,
+      //   "offsetY": 0,
+      // },
+      ".Lienchiang" : {
+        "scale": 1.6,
+        "offsetX": 0,
+        "offsetY": 200,
+      },
+    },
     focusContry: {
       "連江縣": false,
       "金門縣": false,
@@ -734,6 +763,9 @@ export default new Vuex.Store({
     increment2(state, n) {
       state.count += n;
     },
+    MaskSetting(state){
+      state.isMask = !state.isMask
+    },
     zoomSetting(state, payload) {
       state.zoom[0] = payload[0];
       state.zoom[1] = payload[1];
@@ -747,6 +779,7 @@ export default new Vuex.Store({
     },
     reset(state) {
       state.zoom = [0, 0, 1];
+      state.isMask = false;
       const idkey = Object.keys(state.focusContry);
       for (var i = 0; i < idkey.length; i++) {
         state.focusContry[idkey[i]] = false;

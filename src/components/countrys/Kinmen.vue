@@ -1,7 +1,8 @@
 
 
 <template>
-  <svg :width="svgWidth" :height="svgHeight" class="townSVG kk">
+  <div>
+    <svg :width="svgWidth" :height="svgHeight" class="townSVG KinmenSVG">
     <!-- <svg :width="svgWidth" :height="svgHeight" :transform="`scale(${zoom[2]}), translate(${zoom[0]},${zoom[1]})`"> -->
     <g
       v-for="country in topoCountry"
@@ -18,13 +19,15 @@
         <title>{{country.location}}</title>
       </path>
     </g>
-  </svg>
+  </svg></div>
 </template>
 
 <script>
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 import Kinmen from '../../assets/json/towns-09020.json'
+import { mapState } from "vuex"; //註冊 action 和 state
+
 
 export default {
   name: "Kinmen",
@@ -48,18 +51,16 @@ export default {
     };
   },
   mounted() {
-    var g = d3.selectAll(".townSVG");
-    console.log(g);
-    console.log(this.zoom);
-
-    g.style("opacity", 1.0).attr("transform", "scale(1.5) translate(10,10)")
-
+    var g = d3.selectAll(".KinmenSVG");
+    g.attr("transform", `translate(${this.scaleContry[".Kinmen"].offsetX},${this.scaleContry[".Kinmen"].offsetY})`)
     g.transition()
       .duration(900)
       .style("opacity", 1.0)
       .attr(
+        // "transform",
+        // `scale(${this.zoom[2] * 1.5}) translate(${this.zoom[0] - 135.2},${this.zoom[1] - 68.5})`
         "transform",
-        `scale(${this.zoom[2] * 1.5}) translate(${this.zoom[0] - 118.7},${this.zoom[1] - 68.5})`
+        `scale(${this.zoom[2] * this.scaleContry[".Kinmen"].scale}) translate(${this.zoom[0] + this.scaleContry[".Kinmen"].offsetX},${this.zoom[1] +this.scaleContry[".Kinmen"].offsetY})`
       );
   },
   beforeDestroy: function() {
@@ -69,6 +70,9 @@ export default {
   methods: {
     sendCountryName(name) {
       this.$emit("getCountryName", name);
+    },
+    test() {
+      console.log("object");
     },
     async close(name) {
       var g = d3.selectAll(".townSVG");
@@ -83,6 +87,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(["nameCountry","scaleContry"]),
     svgWidth: function() {
       return this.width || 375;
     },
@@ -100,7 +105,7 @@ export default {
       } else {
         prj = d3
           .geoMercator()
-          .center([this.lon || 120.751864, this.lat || 23.600998])
+          .center([this.lon || 121.251864, this.lat || 23.600998])
           .scale(this.svgScale)
           .translate([this.svgWidth / 2, this.svgHeight / 2]);
       }
@@ -135,7 +140,6 @@ svg
 
   &:hover
     stroke-width: 1.5
-
 
 
 
