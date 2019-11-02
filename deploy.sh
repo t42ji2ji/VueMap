@@ -1,4 +1,3 @@
-//deploy.sh
 #!/usr/bin/env sh
 # 當發生錯誤時終止腳本運行
 set -e
@@ -6,7 +5,7 @@ set -e
 npm run build
 # 移動至到打包後的dist目錄 
 cd dist
-git init dist資料夾後初始化git
+git init 
 git add -A
 git commit -m 'deploy'
 # 部署到 https://github.com/chou0728/eric-project.git 分支為 gh-pages

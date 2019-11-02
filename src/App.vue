@@ -1,6 +1,6 @@
 <template lang="pug">
   #app
-    h3.title {{locationName}}
+    h3.title {{locationName}} 
     .mapRapper(:style="{width: mapWidthpx, height: mapHeightpx}")
       Country(:width="mapWidth" :height="mapHeight" :fill="fillcolor" @getCountryName="showName" :scale="scaleMap" ref="_country")
       .Mask(v-if="isMask")
@@ -127,14 +127,15 @@ export default {
       this.locationName = name;
     },
     handleResize() {
+      console.log("trigger");
       var default_scale = 9900;
-      var default_width = 1920;
+      var default_height = 969;
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
       this.mapHeight = this.window.height
       this.mapWidth = this.window.width
 
-      // this.scaleMap = (default_scale * this.window.width) / default_width
+      this.scaleMap = (default_scale * this.window.height) / default_height
       console.log(this.scaleMap);
     },
     ...mapMutations(["increment2", "reset", "focusContrySetting"]),
@@ -157,6 +158,7 @@ $bg-color: #292C3C
 
 *
   outline: red soild 1px
+
 
 .title
   font-size: 5rem
@@ -228,4 +230,9 @@ body, html
   width: 100vw
   height: 100vh
   background-color: rgba(black, 0.6)
+
+@media (max-width: 700px) 
+  .title
+    font-size: 2rem
+    right: 5%
 </style>
