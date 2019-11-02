@@ -109,7 +109,7 @@ export default {
       } else {
         prj = d3
           .geoMercator()
-          .center([this.lon || 121.251864, this.lat || 23.600998])
+          .center([this.lon || 121.251864, this.lat || 23.800998])
           .scale(this.svgScale)
           .translate([this.svgWidth / 2, this.svgHeight / 2]);
       }

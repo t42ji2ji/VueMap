@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { stat } from 'fs';
 
 Vue.use(Vuex);
 
@@ -11,12 +10,12 @@ export default new Vuex.Store({
     zoom: [0, 0, 1],
     scaleContry: {
       ".PenghuCount" : {
-        "scale": 1.5,
+        "scale": 1.4,
         "offsetX": 0,
         "offsetY": 0,
       },
       ".Kinmen" : {
-        "scale": 1.8,
+        "scale": 1.5,
         "offsetX": 230,
         "offsetY": 0,
       },
@@ -31,7 +30,7 @@ export default new Vuex.Store({
       //   "offsetY": 0,
       // },
       ".Lienchiang" : {
-        "scale": 1.6,
+        "scale": 1.8,
         "offsetX": 0,
         "offsetY": 200,
       },
